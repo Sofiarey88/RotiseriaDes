@@ -40,6 +40,7 @@
             salirToolStripMenuItem = new FontAwesome.Sharp.IconMenuItem();
             salirDelSistemaToolStripMenuItem = new FontAwesome.Sharp.IconMenuItem();
             bindingSource1 = new BindingSource(components);
+            label1 = new Label();
             menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)bindingSource1).BeginInit();
             SuspendLayout();
@@ -50,7 +51,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { principalToolStripMenuItem, baseToolStripMenuItem, salirToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1041, 28);
+            menuStrip1.Size = new Size(1836, 28);
             menuStrip1.TabIndex = 0;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -79,7 +80,7 @@
             clienteToolStripMenuItem.IconColor = Color.Black;
             clienteToolStripMenuItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
             clienteToolStripMenuItem.Name = "clienteToolStripMenuItem";
-            clienteToolStripMenuItem.Size = new Size(224, 26);
+            clienteToolStripMenuItem.Size = new Size(160, 26);
             clienteToolStripMenuItem.Text = "Cliente";
             clienteToolStripMenuItem.Click += clienteToolStripMenuItem_Click;
             // 
@@ -89,7 +90,7 @@
             productoToolStripMenuItem.IconColor = Color.Black;
             productoToolStripMenuItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
             productoToolStripMenuItem.Name = "productoToolStripMenuItem";
-            productoToolStripMenuItem.Size = new Size(224, 26);
+            productoToolStripMenuItem.Size = new Size(160, 26);
             productoToolStripMenuItem.Text = "Producto";
             productoToolStripMenuItem.Click += productoToolStripMenuItem_Click;
             // 
@@ -99,7 +100,7 @@
             proveedorToolStripMenuItem.IconColor = Color.Black;
             proveedorToolStripMenuItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
             proveedorToolStripMenuItem.Name = "proveedorToolStripMenuItem";
-            proveedorToolStripMenuItem.Size = new Size(224, 26);
+            proveedorToolStripMenuItem.Size = new Size(160, 26);
             proveedorToolStripMenuItem.Text = "Proveedor";
             proveedorToolStripMenuItem.Click += proveedorToolStripMenuItem_Click;
             // 
@@ -109,7 +110,7 @@
             pedidoToolStripMenuItem.IconColor = Color.Black;
             pedidoToolStripMenuItem.IconFont = FontAwesome.Sharp.IconFont.Auto;
             pedidoToolStripMenuItem.Name = "pedidoToolStripMenuItem";
-            pedidoToolStripMenuItem.Size = new Size(224, 26);
+            pedidoToolStripMenuItem.Size = new Size(160, 26);
             pedidoToolStripMenuItem.Text = "Pedido";
             pedidoToolStripMenuItem.Click += pedidoToolStripMenuItem_Click;
             // 
@@ -133,12 +134,24 @@
             salirDelSistemaToolStripMenuItem.Text = "Salir del sistema";
             salirDelSistemaToolStripMenuItem.Click += salirDelSistemaToolStripMenuItem_Click;
             // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.BackColor = Color.FromArgb(255, 255, 128);
+            label1.Font = new Font("Elephant", 25.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(676, 482);
+            label1.Name = "label1";
+            label1.Size = new Size(743, 56);
+            label1.TabIndex = 1;
+            label1.Text = "Bienvenido a Nuestra Rotisería";
+            // 
             // MenuPrincipal
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackgroundImage = (Image)resources.GetObject("$this.BackgroundImage");
-            ClientSize = new Size(1041, 613);
+            ClientSize = new Size(1836, 681);
+            Controls.Add(label1);
             Controls.Add(menuStrip1);
             MainMenuStrip = menuStrip1;
             Name = "MenuPrincipal";
@@ -164,5 +177,6 @@
         private FontAwesome.Sharp.IconMenuItem pedidoToolStripMenuItem;
         private FontAwesome.Sharp.IconMenuItem salirToolStripMenuItem;
         private FontAwesome.Sharp.IconMenuItem salirDelSistemaToolStripMenuItem;
+        private Label label1;
     }
 }
