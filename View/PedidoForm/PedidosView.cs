@@ -12,6 +12,8 @@ namespace RotiseriaDes.View.PedidoForm
     {
         IGenericService<Pedido> pedidoService = new GenericService<Pedido>();
         IGenericService<Cliente> clienteService = new GenericService<Cliente>(); // Servicio para obtener clientes
+        IGenericService<Producto> productoService = new GenericService<Producto>(); // Servicio para obtener productos
+
 
         public PedidosView()
         {
@@ -21,23 +23,27 @@ namespace RotiseriaDes.View.PedidoForm
 
         private async Task CargarGrilla()
         {
-            var pedidos = await pedidoService.GetAllAsync();
-            var pedidosConNombreCliente = new List<dynamic>();
 
-            // Cargar el nombre del cliente para cada pedido
+            var pedidos = await pedidoService.GetAllAsync();
+            var pedidosConDetalles = new List<dynamic>();
+
+            // Cargar el nombre del cliente y producto para cada pedido
             foreach (var pedido in pedidos)
             {
                 var cliente = await clienteService.GetByIdAsync(pedido.ClienteId); // Obtener el cliente por ID
-                pedidosConNombreCliente.Add(new
+                var producto = await productoService.GetByIdAsync(pedido.ProductoId); // Obtener el producto por ID
+
+                pedidosConDetalles.Add(new
                 {
                     pedido.Id,
                     NombreCliente = cliente?.Nombre, // Asignar nombre del cliente
+                    NombreProducto = producto?.Nombre, // Asignar nombre del producto
                     pedido.Fecha,
                     pedido.Estado
                 });
             }
 
-            dataGridPedidos.DataSource = pedidosConNombreCliente;
+            dataGridPedidos.DataSource = pedidosConDetalles;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)

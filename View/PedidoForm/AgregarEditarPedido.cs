@@ -11,16 +11,34 @@ namespace RotiseriaDes.View.PedidoForm
     {
         private readonly IGenericService<Pedido> pedidoService = new GenericService<Pedido>();
         private readonly IGenericService<Cliente> clienteService = new GenericService<Cliente>();
+        private readonly IGenericService<Producto> productoService = new GenericService<Producto>();
 
         private Pedido pedido;
         private List<Cliente> clientes;
+        private List<Producto> productos;
 
         public AgregarEditarPedido()
         {
             InitializeComponent();
             pedido = new Pedido();
             CargarClientes();
+            CargarProducto();
             txtEstado.Text = "Pendiente";  // Asigna "Pendiente" como estado predeterminado para nuevos pedidos
+        }
+
+        private async  void CargarProducto()
+        {
+            try
+            {
+                productos = await productoService.GetAllAsync();
+                cmbProducto.DataSource = productos;
+                cmbProducto.DisplayMember = "Nombre";
+                cmbProducto.ValueMember = "Id";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error al cargar productos: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public AgregarEditarPedido(int idEditar) : this()
@@ -50,6 +68,7 @@ namespace RotiseriaDes.View.PedidoForm
                 pedido = await pedidoService.GetByIdAsync(idEditar);
                 if (pedido != null)
                 {
+                    cmbProducto.SelectedValue = pedido.ProductoId;
                     comboBoxClientes.SelectedValue = pedido.ClienteId;
                     dateTimePicker1.Value = pedido.Fecha;
                     txtEstado.Text = pedido.Estado;
@@ -69,6 +88,7 @@ namespace RotiseriaDes.View.PedidoForm
         {
             try
             {
+                pedido.ProductoId = (int)cmbProducto.SelectedValue;
                 pedido.ClienteId = (int)comboBoxClientes.SelectedValue;
                 pedido.Fecha = dateTimePicker1.Value;
                 pedido.Estado = txtEstado.Text;

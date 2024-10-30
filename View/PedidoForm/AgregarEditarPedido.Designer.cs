@@ -36,6 +36,8 @@
             btnGuardar = new FontAwesome.Sharp.IconButton();
             dateTimePicker1 = new DateTimePicker();
             txtEstado = new TextBox();
+            label3 = new Label();
+            cmbProducto = new ComboBox();
             SuspendLayout();
             // 
             // label1
@@ -58,7 +60,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(102, 152);
+            label2.Location = new Point(90, 156);
             label2.Name = "label2";
             label2.Size = new Size(50, 20);
             label2.TabIndex = 2;
@@ -67,7 +69,7 @@
             // Estado
             // 
             Estado.AutoSize = true;
-            Estado.Location = new Point(102, 236);
+            Estado.Location = new Point(90, 244);
             Estado.Name = "Estado";
             Estado.Size = new Size(54, 20);
             Estado.TabIndex = 4;
@@ -81,7 +83,7 @@
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnCancelar.IconSize = 24;
             btnCancelar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnCancelar.Location = new Point(491, 377);
+            btnCancelar.Location = new Point(495, 402);
             btnCancelar.Name = "btnCancelar";
             btnCancelar.Size = new Size(124, 40);
             btnCancelar.TabIndex = 11;
@@ -97,7 +99,7 @@
             btnGuardar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnGuardar.IconSize = 24;
             btnGuardar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnGuardar.Location = new Point(152, 377);
+            btnGuardar.Location = new Point(159, 402);
             btnGuardar.Name = "btnGuardar";
             btnGuardar.Size = new Size(124, 40);
             btnGuardar.TabIndex = 10;
@@ -119,12 +121,31 @@
             txtEstado.Size = new Size(356, 27);
             txtEstado.TabIndex = 13;
             // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(90, 318);
+            label3.Name = "label3";
+            label3.Size = new Size(72, 20);
+            label3.TabIndex = 14;
+            label3.Text = "Producto:";
+            // 
+            // cmbProducto
+            // 
+            cmbProducto.FormattingEnabled = true;
+            cmbProducto.Location = new Point(185, 319);
+            cmbProducto.Name = "cmbProducto";
+            cmbProducto.Size = new Size(356, 28);
+            cmbProducto.TabIndex = 15;
+            // 
             // AgregarEditarPedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 255);
             ClientSize = new Size(845, 482);
+            Controls.Add(cmbProducto);
+            Controls.Add(label3);
             Controls.Add(txtEstado);
             Controls.Add(dateTimePicker1);
             Controls.Add(btnCancelar);
@@ -150,5 +171,7 @@
         private FontAwesome.Sharp.IconButton btnGuardar;
         private DateTimePicker dateTimePicker1;
         private TextBox txtEstado;
+        private Label label3;
+        private ComboBox cmbProducto;
     }
 }
