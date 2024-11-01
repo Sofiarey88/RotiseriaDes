@@ -10,10 +10,9 @@ namespace RotiseriaDes.View.PedidoForm
 {
     public partial class PedidosView : Form
     {
-        IGenericService<Pedido> pedidoService = new GenericService<Pedido>();
-        IGenericService<Cliente> clienteService = new GenericService<Cliente>(); // Servicio para obtener clientes
-        IGenericService<Producto> productoService = new GenericService<Producto>(); // Servicio para obtener productos
-
+        private readonly IGenericService<Pedido> _pedidoService = new GenericService<Pedido>();
+        private readonly IGenericService<Cliente> _clienteService = new GenericService<Cliente>();
+        private readonly IGenericService<Producto> _productoService = new GenericService<Producto>();
 
         public PedidosView()
         {
@@ -23,38 +22,67 @@ namespace RotiseriaDes.View.PedidoForm
 
         private async Task CargarGrilla()
         {
-
-            var pedidos = await pedidoService.GetAllAsync();
-            var pedidosConDetalles = new List<dynamic>();
-
-            // Cargar el nombre del cliente y producto para cada pedido
-            foreach (var pedido in pedidos)
+            try
             {
-                var cliente = await clienteService.GetByIdAsync(pedido.ClienteId); // Obtener el cliente por ID
-                var producto = await productoService.GetByIdAsync(pedido.ProductoId); // Obtener el producto por ID
+                var pedidos = await _pedidoService.GetAllAsync();
+                var pedidosConDetalles = new List<dynamic>();
 
-                pedidosConDetalles.Add(new
+                foreach (var pedido in pedidos)
                 {
-                    pedido.Id,
-                    NombreCliente = cliente?.Nombre, // Asignar nombre del cliente
-                    NombreProducto = producto?.Nombre, // Asignar nombre del producto
-                    pedido.Fecha,
-                    pedido.Estado
-                });
-            }
+                    var cliente = await ObtenerClientePorIdAsync(pedido.ClienteId);
+                    var producto = await ObtenerProductoPorIdAsync(pedido.ProductoId);
 
-            dataGridPedidos.DataSource = pedidosConDetalles;
+                    pedidosConDetalles.Add(new
+                    {
+                        pedido.Id,
+                        NombreCliente = cliente?.Nombre ?? "Cliente desconocido",
+                        NombreProducto = producto?.Nombre ?? "Producto desconocido",
+                        pedido.Fecha,
+                        pedido.Estado,
+                        PrecioProducto = producto?.Precio.ToString("F2") ?? "0.00"
+                    });
+                }
+
+                dataGridPedidos.DataSource = pedidosConDetalles;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error al cargar los pedidos: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void btnSalir_Click(object sender, EventArgs e)
+        private async Task<Cliente> ObtenerClientePorIdAsync(int clienteId)
         {
-            this.Close();
+            try
+            {
+                return await _clienteService.GetByIdAsync(clienteId);
+            }
+            catch
+            {
+                MessageBox.Show($"No se pudo obtener el cliente con ID {clienteId}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
+        }
+
+        private async Task<Producto> ObtenerProductoPorIdAsync(int productoId)
+        {
+            try
+            {
+                return await _productoService.GetByIdAsync(productoId);
+            }
+            catch
+            {
+                MessageBox.Show($"No se pudo obtener el producto con ID {productoId}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return null;
+            }
         }
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            AgregarEditarPedido agregarEditarPedido = new AgregarEditarPedido();
-            agregarEditarPedido.ShowDialog();
+            using (var agregarEditarPedido = new AgregarEditarPedido())
+            {
+                agregarEditarPedido.ShowDialog();
+            }
             await CargarGrilla();
         }
 
@@ -63,13 +91,22 @@ namespace RotiseriaDes.View.PedidoForm
             if (dataGridPedidos.CurrentRow != null)
             {
                 var idEliminar = (int)dataGridPedidos.CurrentRow.Cells[0].Value;
-                var nombreEliminar = dataGridPedidos.CurrentRow.Cells[1].Value.ToString(); // Obtener nombre del cliente
+                var nombreEliminar = dataGridPedidos.CurrentRow.Cells[1].Value.ToString();
+
                 var respuesta = MessageBox.Show($"¿Está seguro que quiere borrar el pedido del cliente {nombreEliminar}?",
                                                 "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
                 if (respuesta == DialogResult.Yes)
                 {
-                    await pedidoService.DeleteAsync(idEliminar);
-                    await CargarGrilla();
+                    try
+                    {
+                        await _pedidoService.DeleteAsync(idEliminar);
+                        await CargarGrilla();
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show($"Error al eliminar el pedido: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
             }
             else
@@ -84,19 +121,22 @@ namespace RotiseriaDes.View.PedidoForm
             {
                 var idEditar = (int)dataGridPedidos.CurrentRow.Cells[0].Value;
 
-                // Crear instancia del formulario en modo edición con el ID del pedido a editar
-                var agregarEditarPedido = new AgregarEditarPedido(idEditar);
+                using (var agregarEditarPedido = new AgregarEditarPedido(idEditar))
+                {
+                    agregarEditarPedido.ShowDialog();
+                }
 
-                // Mostrar el formulario de edición
-                agregarEditarPedido.ShowDialog();
-
-                // Actualizar la grilla después de cerrar el formulario de edición
                 await CargarGrilla();
             }
             else
             {
                 MessageBox.Show("Seleccione un pedido para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private void btnSalir_Click(object sender, EventArgs e)
+        {
+            this.Close();
         }
     }
 }

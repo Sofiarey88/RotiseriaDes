@@ -3,6 +3,7 @@ using RotiseriaDes.Modelos;
 using RotiseriaDes.Service;
 using RotiseriaDes.View.PedidoForm;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -10,7 +11,7 @@ namespace RotiseriaDes.View.ProductoForm
 {
     public partial class ProductosView : Form
     {
-        IGenericService<Producto> productoService = new GenericService<Producto>();
+        private readonly IGenericService<Producto> _productoService = new GenericService<Producto>();
 
         public ProductosView()
         {
@@ -20,7 +21,21 @@ namespace RotiseriaDes.View.ProductoForm
 
         private async Task CargarGrilla()
         {
-            dataGridProductos.DataSource = await productoService.GetAllAsync();
+            var productos = await _productoService.GetAllAsync();
+            var productosConPrecioFormateado = new List<dynamic>();
+
+            // Crear una lista de productos con el precio formateado
+            foreach (var producto in productos)
+            {
+                productosConPrecioFormateado.Add(new
+                {
+                    producto.Id,
+                    producto.Nombre,
+                    Precio = producto.Precio.ToString("F2") // Formatear el precio con dos decimales
+                });
+            }
+
+            dataGridProductos.DataSource = productosConPrecioFormateado;
         }
 
         private void btnSalir_Click(object sender, EventArgs e)
@@ -34,7 +49,7 @@ namespace RotiseriaDes.View.ProductoForm
             {
                 var idEditar = (int)dataGridProductos.CurrentRow.Cells[0].Value;
 
-                // Crear instancia del formulario en modo edición con el ID del pedido a editar
+                // Crear instancia del formulario en modo edición con el ID del producto a editar
                 var agregarEditarProducto = new AgregarEditarProducto(idEditar);
 
                 // Mostrar el formulario de edición
@@ -45,13 +60,13 @@ namespace RotiseriaDes.View.ProductoForm
             }
             else
             {
-                MessageBox.Show("Seleccione un pedido para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Seleccione un producto para editar.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
-            AgregarEditarProducto agregarEditarProducto = new AgregarEditarProducto();
+            var agregarEditarProducto = new AgregarEditarProducto();
             agregarEditarProducto.ShowDialog();
             await CargarGrilla(); // Vuelve a cargar la grilla después de agregar
         }
@@ -65,7 +80,7 @@ namespace RotiseriaDes.View.ProductoForm
                 var respuesta = MessageBox.Show($"¿Está seguro que quiere borrar el producto {nombreEliminar}?", "Eliminar", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (respuesta == DialogResult.Yes)
                 {
-                    await productoService.DeleteAsync(idEliminar); // Espera a que se complete la eliminación
+                    await _productoService.DeleteAsync(idEliminar); // Espera a que se complete la eliminación
                     await CargarGrilla(); // Vuelve a cargar la grilla después de eliminar
                 }
             }

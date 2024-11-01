@@ -32,8 +32,8 @@ namespace RotiseriaDes.View.Login
             // Configure...
             var config = new FirebaseAuthConfig
             {
-                ApiKey = "AIzaSyAG2a64Un5gcNaSrHdS3NmQKsEgmOQ1tj4",
-                AuthDomain = "fir-autenticacion-262a8.firebaseapp.com",
+                ApiKey = "AIzaSyCOqj-gg_eys33eeFYljRo7PMdj71-zZo4",
+                AuthDomain = "institutooauth.firebaseapp.com",
                 Providers = new FirebaseAuthProvider[]
                 {
                     // Add and configure individual providers
@@ -46,6 +46,8 @@ namespace RotiseriaDes.View.Login
             // ...and create your FirebaseAuthClient
             firebaseAuthClient = new FirebaseAuthClient(config);
         }
+
+
 
         private void btnIngresar_Click(object sender, EventArgs e)
         {
