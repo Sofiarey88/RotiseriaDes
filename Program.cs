@@ -1,17 +1,25 @@
+using RotiseriaDes.View.Login;
+
 namespace RotiseriaDes
 {
     internal static class Program
     {
-        /// <summary>
-        ///  The main entry point for the application.
-        /// </summary>
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new MenuPrincipal());
+
+            // Abrir IniciarSesionView como formulario modal
+            using (var iniciarSesionView = new IniciarSesionView())
+            {
+                iniciarSesionView.ShowDialog();
+
+                // Si el inicio de sesión fue exitoso, abrir MenuPrincipal
+                if (iniciarSesionView.loginSuccessfull)
+                {
+                    Application.Run(new MenuPrincipal());
+                }
+            }
         }
     }
 }
