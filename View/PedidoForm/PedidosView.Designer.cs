@@ -60,7 +60,7 @@
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnEliminar.IconSize = 24;
             btnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEliminar.Location = new Point(446, 476);
+            btnEliminar.Location = new Point(570, 451);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(150, 40);
             btnEliminar.TabIndex = 8;
@@ -76,7 +76,7 @@
             btnEditar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnEditar.IconSize = 24;
             btnEditar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditar.Location = new Point(268, 476);
+            btnEditar.Location = new Point(326, 451);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(150, 40);
             btnEditar.TabIndex = 7;
@@ -92,7 +92,7 @@
             btnAgregar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnAgregar.IconSize = 24;
             btnAgregar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnAgregar.Location = new Point(95, 476);
+            btnAgregar.Location = new Point(79, 451);
             btnAgregar.Name = "btnAgregar";
             btnAgregar.Size = new Size(150, 40);
             btnAgregar.TabIndex = 6;
@@ -106,12 +106,12 @@
             dataGridPedidos.AllowUserToDeleteRows = false;
             dataGridPedidos.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridPedidos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPedidos.Location = new Point(80, 64);
+            dataGridPedidos.Location = new Point(48, 71);
             dataGridPedidos.Name = "dataGridPedidos";
             dataGridPedidos.ReadOnly = true;
             dataGridPedidos.RowHeadersWidth = 51;
             dataGridPedidos.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridPedidos.Size = new Size(861, 329);
+            dataGridPedidos.Size = new Size(935, 329);
             dataGridPedidos.TabIndex = 5;
             // 
             // PedidosView

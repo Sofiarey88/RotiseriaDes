@@ -38,6 +38,8 @@
             txtEstado = new TextBox();
             label3 = new Label();
             cmbProducto = new ComboBox();
+            NuevoClienteAgre = new Button();
+            NuevoProductoAgre = new Button();
             SuspendLayout();
             // 
             // label1
@@ -138,12 +140,36 @@
             cmbProducto.Size = new Size(356, 28);
             cmbProducto.TabIndex = 15;
             // 
+            // NuevoClienteAgre
+            // 
+            NuevoClienteAgre.BackColor = Color.SandyBrown;
+            NuevoClienteAgre.Location = new Point(603, 58);
+            NuevoClienteAgre.Name = "NuevoClienteAgre";
+            NuevoClienteAgre.Size = new Size(137, 29);
+            NuevoClienteAgre.TabIndex = 16;
+            NuevoClienteAgre.Text = "Nuevo Cliente";
+            NuevoClienteAgre.UseVisualStyleBackColor = false;
+            NuevoClienteAgre.Click += NuevoClienteAgre_Click;
+            // 
+            // NuevoProductoAgre
+            // 
+            NuevoProductoAgre.BackColor = Color.SandyBrown;
+            NuevoProductoAgre.Location = new Point(603, 319);
+            NuevoProductoAgre.Name = "NuevoProductoAgre";
+            NuevoProductoAgre.Size = new Size(137, 29);
+            NuevoProductoAgre.TabIndex = 17;
+            NuevoProductoAgre.Text = "Nuevo Producto";
+            NuevoProductoAgre.UseVisualStyleBackColor = false;
+            NuevoProductoAgre.Click += NuevoProductoAgre_Click;
+            // 
             // AgregarEditarPedido
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 255);
             ClientSize = new Size(845, 482);
+            Controls.Add(NuevoProductoAgre);
+            Controls.Add(NuevoClienteAgre);
             Controls.Add(cmbProducto);
             Controls.Add(label3);
             Controls.Add(txtEstado);
@@ -173,5 +199,7 @@
         private TextBox txtEstado;
         private Label label3;
         private ComboBox cmbProducto;
+        private Button NuevoClienteAgre;
+        private Button NuevoProductoAgre;
     }
 }

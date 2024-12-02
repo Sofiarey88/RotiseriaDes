@@ -1,6 +1,8 @@
 ﻿using RotiseriaDes.Interface;
 using RotiseriaDes.Modelos;
 using RotiseriaDes.Service;
+using RotiseriaDes.View.ClienteForm;
+using RotiseriaDes.View.ProductoForm;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
@@ -23,10 +25,10 @@ namespace RotiseriaDes.View.PedidoForm
             pedido = new Pedido();
             CargarClientes();
             CargarProducto();
-            txtEstado.Text = "Pendiente";  // Asigna "Pendiente" como estado predeterminado para nuevos pedidos
+            txtEstado.Text = "Pendiente"; // Asigna "Pendiente" como estado predeterminado para nuevos pedidos
         }
 
-        private async  void CargarProducto()
+        private async void CargarProducto()
         {
             try
             {
@@ -115,6 +117,24 @@ namespace RotiseriaDes.View.PedidoForm
         private void btnCancelar_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void NuevoClienteAgre_Click(object sender, EventArgs e)
+        {
+            using (var agregarEditarCliente = new AgregarEditarCliente())
+            {
+                agregarEditarCliente.FormClosed += (s, args) => CargarClientes(); // Recargar clientes al cerrar el formulario
+                agregarEditarCliente.ShowDialog();
+            }
+        }
+
+        private void NuevoProductoAgre_Click(object sender, EventArgs e)
+        {
+            using (var agregarEditarProducto = new AgregarEditarProducto())
+            {
+                agregarEditarProducto.FormClosed += (s, args) => CargarProducto(); // Recargar productos al cerrar el formulario
+                agregarEditarProducto.ShowDialog();
+            }
         }
     }
 }

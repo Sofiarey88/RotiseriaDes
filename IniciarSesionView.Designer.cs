@@ -59,7 +59,7 @@
             // btnIngresar
             // 
             btnIngresar.BackColor = Color.FromArgb(128, 255, 128);
-            btnIngresar.IconChar = FontAwesome.Sharp.IconChar.File;
+            btnIngresar.IconChar = FontAwesome.Sharp.IconChar.User;
             btnIngresar.IconColor = Color.Black;
             btnIngresar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnIngresar.IconSize = 24;
@@ -75,7 +75,7 @@
             // btnCancelar
             // 
             btnCancelar.BackColor = Color.FromArgb(255, 128, 128);
-            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.File;
+            btnCancelar.IconChar = FontAwesome.Sharp.IconChar.Cancel;
             btnCancelar.IconColor = Color.Black;
             btnCancelar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnCancelar.IconSize = 24;
