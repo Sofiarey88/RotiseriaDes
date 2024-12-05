@@ -77,6 +77,50 @@ namespace RotiseriaDes.View.PedidoForm
             }
         }
 
+        private async void btnCompleto_Click(object sender, EventArgs e)
+        {
+            if (dataGridPedidos.CurrentRow != null)
+            {
+                var pedidoId = (int)dataGridPedidos.CurrentRow.Cells["Id"].Value;
+
+                try
+                {
+                    // Obtén el pedido actual
+                    var pedido = await _pedidoService.GetByIdAsync(pedidoId);
+
+                    if (pedido != null && pedido.Estado != "Completo")
+                    {
+                        // Cambiar el estado a 'Completo'
+                        pedido.Estado = "Completo";
+                        await _pedidoService.UpdateAsync(pedido);
+
+                        // Recargar la grilla
+                        await CargarGrilla();
+
+                        // Mostrar el mensaje de éxito
+                        MessageBox.Show("El estado del pedido se cambió a 'Completo'.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else if (pedido?.Estado == "Completo")
+                    {
+                        MessageBox.Show("El pedido ya está en estado 'Completo'.", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        MessageBox.Show("No se encontró el pedido seleccionado.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error al cambiar el estado del pedido: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un pedido para completar.", "Advertencia", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+
         private async void btnAgregar_Click(object sender, EventArgs e)
         {
             using (var agregarEditarPedido = new AgregarEditarPedido())

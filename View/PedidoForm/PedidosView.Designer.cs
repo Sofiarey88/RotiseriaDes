@@ -33,6 +33,7 @@
             btnEditar = new FontAwesome.Sharp.IconButton();
             btnAgregar = new FontAwesome.Sharp.IconButton();
             dataGridPedidos = new DataGridView();
+            btnCompleto = new Button();
             ((System.ComponentModel.ISupportInitialize)dataGridPedidos).BeginInit();
             SuspendLayout();
             // 
@@ -44,7 +45,7 @@
             btnSalir.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnSalir.IconSize = 24;
             btnSalir.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSalir.Location = new Point(848, 510);
+            btnSalir.Location = new Point(885, 534);
             btnSalir.Name = "btnSalir";
             btnSalir.Size = new Size(150, 40);
             btnSalir.TabIndex = 9;
@@ -60,7 +61,7 @@
             btnEliminar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnEliminar.IconSize = 24;
             btnEliminar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEliminar.Location = new Point(570, 451);
+            btnEliminar.Location = new Point(532, 451);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(150, 40);
             btnEliminar.TabIndex = 8;
@@ -76,7 +77,7 @@
             btnEditar.IconFont = FontAwesome.Sharp.IconFont.Regular;
             btnEditar.IconSize = 24;
             btnEditar.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEditar.Location = new Point(326, 451);
+            btnEditar.Location = new Point(297, 449);
             btnEditar.Name = "btnEditar";
             btnEditar.Size = new Size(150, 40);
             btnEditar.TabIndex = 7;
@@ -114,12 +115,26 @@
             dataGridPedidos.Size = new Size(935, 329);
             dataGridPedidos.TabIndex = 5;
             // 
+            // btnCompleto
+            // 
+            btnCompleto.BackColor = Color.Yellow;
+            btnCompleto.Font = new Font("Segoe UI", 9F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCompleto.ForeColor = SystemColors.ActiveCaptionText;
+            btnCompleto.Location = new Point(762, 454);
+            btnCompleto.Name = "btnCompleto";
+            btnCompleto.Size = new Size(159, 35);
+            btnCompleto.TabIndex = 10;
+            btnCompleto.Text = " COMPLETO";
+            btnCompleto.UseVisualStyleBackColor = false;
+            btnCompleto.Click += btnCompleto_Click;
+            // 
             // PedidosView
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(192, 255, 255);
             ClientSize = new Size(1056, 586);
+            Controls.Add(btnCompleto);
             Controls.Add(btnSalir);
             Controls.Add(btnEliminar);
             Controls.Add(btnEditar);
@@ -139,5 +154,6 @@
         private FontAwesome.Sharp.IconButton btnEditar;
         private FontAwesome.Sharp.IconButton btnAgregar;
         private DataGridView dataGridPedidos;
+        private Button btnCompleto;
     }
 }
